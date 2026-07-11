@@ -576,7 +576,7 @@ function renderBracket() {
           slot.innerHTML = `
             <div class="slot-img" style="background:${color}">
               <span class="slot-initials">${init}</span>
-              <img src="${img}" onload="this.style.opacity=1;this.previousSibling.style.display='none'" onerror="this.style.display='none'">
+              <img src="${img}" onload="this.style.opacity=1;this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
             </div>
             <div class="slot-info">
               <div class="slot-name">${s.char.name}</div>
