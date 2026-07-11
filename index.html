@@ -520,7 +520,7 @@ function imgPath(c) {
   const key = (SHARED_HERO_NAMES.has(c.name) && c.realName)
     ? c.name + ' ' + c.realName
     : c.name;
-  return 'images/' + key.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'') + '.jpg';
+  return 'Images/' + key.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'') + '.jpg';
 }
 
 // ─── Render ───────────────────────────────────────────────────────────────────
