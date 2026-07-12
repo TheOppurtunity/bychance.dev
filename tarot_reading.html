@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --bg: #0e0b14;
       --surface: #16121f;
@@ -25,6 +24,29 @@
       --danger-bg: rgba(224,112,112,0.12);
     }
 
+    /* ── Site nav ── */
+    .site-nav {
+      width: 100%;
+      background: rgba(14,11,20,0.97);
+      border-bottom: 1px solid rgba(180,150,255,0.15);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+    .back-link {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.08em;
+    }
+    .back-link:hover { color: var(--gold-light); text-decoration: underline; }
+    .site-nav-title { font-size: 1rem; color: var(--text); font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
+    .site-nav-sub { font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -33,7 +55,6 @@
       line-height: 1.6;
       min-height: 100vh;
     }
-
     /* Starfield background */
     body::before {
       content: '';
@@ -53,7 +74,6 @@
       pointer-events: none;
       z-index: 0;
     }
-
     .container {
       position: relative;
       z-index: 1;
@@ -61,19 +81,16 @@
       margin: 0 auto;
       padding: 3rem 2rem 4rem;
     }
-
     header {
       text-align: center;
       margin-bottom: 3rem;
     }
-
     .eye-symbol {
       font-size: 2rem;
       margin-bottom: 0.75rem;
       display: block;
       filter: drop-shadow(0 0 8px rgba(155,127,232,0.5));
     }
-
     h1 {
       font-family: 'Cinzel', serif;
       font-size: clamp(1.6rem, 4vw, 2.4rem);
@@ -83,14 +100,12 @@
       text-shadow: 0 0 30px rgba(201,168,76,0.3);
       margin-bottom: 0.4rem;
     }
-
     .subtitle {
       font-size: 1rem;
       color: var(--text-muted);
       font-style: italic;
       letter-spacing: 0.04em;
     }
-
     .divider {
       display: flex;
       align-items: center;
@@ -106,7 +121,6 @@
       height: 1px;
       background: linear-gradient(to right, transparent, var(--border2), transparent);
     }
-
     .controls {
       display: flex;
       align-items: center;
@@ -115,14 +129,12 @@
       flex-wrap: wrap;
       margin-bottom: 2rem;
     }
-
     .controls label {
       font-size: 0.9rem;
       color: var(--text-muted);
       letter-spacing: 0.05em;
       font-family: 'Cinzel', serif;
     }
-
     input[type=number] {
       width: 72px;
       background: var(--surface);
@@ -138,7 +150,6 @@
     }
     input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
     input[type=number]:focus { border-color: var(--violet); }
-
     .draw-btn {
       padding: 9px 28px;
       background: transparent;
@@ -158,7 +169,6 @@
       color: var(--gold-light);
     }
     .draw-btn:active { transform: scale(0.97); }
-
     .hint {
       text-align: center;
       font-size: 0.85rem;
@@ -173,7 +183,6 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.25rem;
     }
-
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -182,6 +191,16 @@
       position: relative;
       overflow: hidden;
       animation: fadeUp 0.4s ease both;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      border-color: var(--violet);
+      box-shadow: 0 0 20px rgba(155,127,232,0.15);
+    }
+    .card.inverted-card:hover {
+      border-color: var(--danger);
+      box-shadow: 0 0 20px rgba(224,112,112,0.15);
     }
     .card::before {
       content: '';
@@ -194,12 +213,10 @@
     .card.inverted-card::before {
       background: linear-gradient(90deg, transparent, var(--danger), transparent);
     }
-
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .card-pos {
       font-family: 'Cinzel', serif;
       font-size: 0.68rem;
@@ -208,13 +225,6 @@
       text-transform: uppercase;
       margin-bottom: 0.75rem;
     }
-
-    .card-glyph {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
     .card-name {
       font-family: 'Cinzel', serif;
       font-size: 1rem;
@@ -223,13 +233,11 @@
       line-height: 1.3;
       margin-bottom: 0.25rem;
     }
-
     .card-meta {
       font-size: 0.82rem;
       color: var(--text-dim);
       margin-bottom: 0.75rem;
     }
-
     .inverted-badge {
       display: inline-block;
       font-family: 'Cinzel', serif;
@@ -241,7 +249,6 @@
       color: var(--danger);
       border: 1px solid rgba(224,112,112,0.2);
     }
-
     .upright-badge {
       display: inline-block;
       font-family: 'Cinzel', serif;
@@ -252,6 +259,12 @@
       background: rgba(155,127,232,0.1);
       color: var(--violet-light);
       border: 1px solid rgba(155,127,232,0.2);
+    }
+    .hover-hint {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-top: 0.6rem;
     }
 
     /* Full deck list */
@@ -265,15 +278,12 @@
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--border);
     }
-
     .suit-group { margin-bottom: 2rem; }
-
     .deck-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 3px;
     }
-
     .deck-row {
       display: flex;
       align-items: center;
@@ -284,21 +294,87 @@
       font-size: 0.9rem;
     }
     .deck-row:hover { background: var(--surface2); }
-
     .deck-num {
       color: var(--text-dim);
       font-size: 0.8rem;
       min-width: 26px;
       font-variant-numeric: tabular-nums;
     }
-
     .deck-name { color: var(--text); }
-
     .error-msg {
       text-align: center;
       color: var(--danger);
       font-style: italic;
       padding: 1rem;
+    }
+
+    /* ── Meaning popup ── */
+    .tarot-popup {
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      width: min(88vw, 520px);
+      max-height: 75vh;
+      overflow-y: auto;
+      pointer-events: none;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.95), 0 0 40px rgba(155,127,232,0.08);
+      display: none;
+    }
+    .tarot-popup::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      border-radius: 16px 16px 0 0;
+      background: linear-gradient(90deg, transparent, var(--violet), transparent);
+    }
+    .tarot-popup.inverted-popup::before {
+      background: linear-gradient(90deg, transparent, var(--danger), transparent);
+    }
+    .popup-inner {
+      padding: 2rem 2rem 1.75rem;
+    }
+    .popup-card-suit {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .popup-card-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+      text-shadow: 0 0 20px rgba(201,168,76,0.2);
+    }
+    .popup-badge-wrap { margin-bottom: 1.25rem; }
+    .popup-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border2), transparent);
+      margin: 1.25rem 0;
+    }
+    .popup-orientation-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .popup-meaning {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-style: italic;
     }
 
     @media (max-width: 500px) {
@@ -308,40 +384,143 @@
   </style>
 </head>
 <body>
+
+<nav class="site-nav">
+  <a class="back-link" href="index.html">← bychance.dev</a>
+  <span class="site-nav-title">Tarot Reading</span>
+  <span class="site-nav-sub">Mystical · Interactive</span>
+</nav>
+
 <div class="container">
   <header>
     <span class="eye-symbol">✦</span>
     <h1>Tarot Card Reader</h1>
     <p class="subtitle">Draw from the 78-card deck &mdash; upright &amp; inverted</p>
   </header>
-
   <div class="controls">
     <label for="num-cards">Cards to draw</label>
     <input type="number" id="num-cards" min="0" max="78" value="3" />
     <button class="draw-btn" onclick="draw()">Draw the Cards</button>
   </div>
   <p class="hint">Enter 0 to display all 78 cards in order</p>
-
   <div class="divider">&#10022;</div>
-
   <div id="output"></div>
 </div>
 
-<script>
-const SUIT_GLYPHS = { "Major Arcana": "✦", "Cups": "🜄", "Pentacles": "⬠", "Swords": "✦", "Wands": "⁂" };
+<!-- Popup overlay + popup -->
+<div id="popup-overlay" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.55);pointer-events:none;"></div>
+<div class="tarot-popup" id="tarot-popup">
+  <div class="popup-inner">
+    <div class="popup-card-suit" id="popup-suit"></div>
+    <div class="popup-card-name" id="popup-name"></div>
+    <div class="popup-badge-wrap" id="popup-badge"></div>
+    <div class="popup-divider"></div>
+    <div class="popup-orientation-label" id="popup-orientation-label"></div>
+    <div class="popup-meaning" id="popup-meaning"></div>
+  </div>
+</div>
 
+<script>
+// ── Meanings ─────────────────────────────────────────────────────────────────
+// Replace the placeholder strings with your real card meanings.
+// Each card has an "upright" and "inverted" entry.
+const MEANINGS = {
+  // ── Major Arcana ──
+  "The Fool":            { upright: "The Fool — upright meaning coming soon.", inverted: "The Fool — inverted meaning coming soon." },
+  "The Magician":        { upright: "The Magician — upright meaning coming soon.", inverted: "The Magician — inverted meaning coming soon." },
+  "The High Priestess":  { upright: "The High Priestess — upright meaning coming soon.", inverted: "The High Priestess — inverted meaning coming soon." },
+  "The Empress":         { upright: "The Empress — upright meaning coming soon.", inverted: "The Empress — inverted meaning coming soon." },
+  "The Emperor":         { upright: "The Emperor — upright meaning coming soon.", inverted: "The Emperor — inverted meaning coming soon." },
+  "The Hierophant":      { upright: "The Hierophant — upright meaning coming soon.", inverted: "The Hierophant — inverted meaning coming soon." },
+  "The Lovers":          { upright: "The Lovers — upright meaning coming soon.", inverted: "The Lovers — inverted meaning coming soon." },
+  "The Chariot":         { upright: "The Chariot — upright meaning coming soon.", inverted: "The Chariot — inverted meaning coming soon." },
+  "Strength":            { upright: "Strength — upright meaning coming soon.", inverted: "Strength — inverted meaning coming soon." },
+  "The Hermit":          { upright: "The Hermit — upright meaning coming soon.", inverted: "The Hermit — inverted meaning coming soon." },
+  "Wheel of Fortune":    { upright: "Wheel of Fortune — upright meaning coming soon.", inverted: "Wheel of Fortune — inverted meaning coming soon." },
+  "Justice":             { upright: "Justice — upright meaning coming soon.", inverted: "Justice — inverted meaning coming soon." },
+  "The Hanged Man":      { upright: "The Hanged Man — upright meaning coming soon.", inverted: "The Hanged Man — inverted meaning coming soon." },
+  "Death":               { upright: "Death — upright meaning coming soon.", inverted: "Death — inverted meaning coming soon." },
+  "Temperance":          { upright: "Temperance — upright meaning coming soon.", inverted: "Temperance — inverted meaning coming soon." },
+  "The Devil":           { upright: "The Devil — upright meaning coming soon.", inverted: "The Devil — inverted meaning coming soon." },
+  "The Tower":           { upright: "The Tower — upright meaning coming soon.", inverted: "The Tower — inverted meaning coming soon." },
+  "The Star":            { upright: "The Star — upright meaning coming soon.", inverted: "The Star — inverted meaning coming soon." },
+  "The Moon":            { upright: "The Moon — upright meaning coming soon.", inverted: "The Moon — inverted meaning coming soon." },
+  "The Sun":             { upright: "The Sun — upright meaning coming soon.", inverted: "The Sun — inverted meaning coming soon." },
+  "Judgement":           { upright: "Judgement — upright meaning coming soon.", inverted: "Judgement — inverted meaning coming soon." },
+  "The World":           { upright: "The World — upright meaning coming soon.", inverted: "The World — inverted meaning coming soon." },
+  // ── Cups ──
+  "Ace of Cups":         { upright: "Ace of Cups — upright meaning coming soon.", inverted: "Ace of Cups — inverted meaning coming soon." },
+  "Two of Cups":         { upright: "Two of Cups — upright meaning coming soon.", inverted: "Two of Cups — inverted meaning coming soon." },
+  "Three of Cups":       { upright: "Three of Cups — upright meaning coming soon.", inverted: "Three of Cups — inverted meaning coming soon." },
+  "Four of Cups":        { upright: "Four of Cups — upright meaning coming soon.", inverted: "Four of Cups — inverted meaning coming soon." },
+  "Five of Cups":        { upright: "Five of Cups — upright meaning coming soon.", inverted: "Five of Cups — inverted meaning coming soon." },
+  "Six of Cups":         { upright: "Six of Cups — upright meaning coming soon.", inverted: "Six of Cups — inverted meaning coming soon." },
+  "Seven of Cups":       { upright: "Seven of Cups — upright meaning coming soon.", inverted: "Seven of Cups — inverted meaning coming soon." },
+  "Eight of Cups":       { upright: "Eight of Cups — upright meaning coming soon.", inverted: "Eight of Cups — inverted meaning coming soon." },
+  "Nine of Cups":        { upright: "Nine of Cups — upright meaning coming soon.", inverted: "Nine of Cups — inverted meaning coming soon." },
+  "Ten of Cups":         { upright: "Ten of Cups — upright meaning coming soon.", inverted: "Ten of Cups — inverted meaning coming soon." },
+  "Page of Cups":        { upright: "Page of Cups — upright meaning coming soon.", inverted: "Page of Cups — inverted meaning coming soon." },
+  "Knight of Cups":      { upright: "Knight of Cups — upright meaning coming soon.", inverted: "Knight of Cups — inverted meaning coming soon." },
+  "Queen of Cups":       { upright: "Queen of Cups — upright meaning coming soon.", inverted: "Queen of Cups — inverted meaning coming soon." },
+  "King of Cups":        { upright: "King of Cups — upright meaning coming soon.", inverted: "King of Cups — inverted meaning coming soon." },
+  // ── Pentacles ──
+  "Ace of Pentacles":    { upright: "Ace of Pentacles — upright meaning coming soon.", inverted: "Ace of Pentacles — inverted meaning coming soon." },
+  "Two of Pentacles":    { upright: "Two of Pentacles — upright meaning coming soon.", inverted: "Two of Pentacles — inverted meaning coming soon." },
+  "Three of Pentacles":  { upright: "Three of Pentacles — upright meaning coming soon.", inverted: "Three of Pentacles — inverted meaning coming soon." },
+  "Four of Pentacles":   { upright: "Four of Pentacles — upright meaning coming soon.", inverted: "Four of Pentacles — inverted meaning coming soon." },
+  "Five of Pentacles":   { upright: "Five of Pentacles — upright meaning coming soon.", inverted: "Five of Pentacles — inverted meaning coming soon." },
+  "Six of Pentacles":    { upright: "Six of Pentacles — upright meaning coming soon.", inverted: "Six of Pentacles — inverted meaning coming soon." },
+  "Seven of Pentacles":  { upright: "Seven of Pentacles — upright meaning coming soon.", inverted: "Seven of Pentacles — inverted meaning coming soon." },
+  "Eight of Pentacles":  { upright: "Eight of Pentacles — upright meaning coming soon.", inverted: "Eight of Pentacles — inverted meaning coming soon." },
+  "Nine of Pentacles":   { upright: "Nine of Pentacles — upright meaning coming soon.", inverted: "Nine of Pentacles — inverted meaning coming soon." },
+  "Ten of Pentacles":    { upright: "Ten of Pentacles — upright meaning coming soon.", inverted: "Ten of Pentacles — inverted meaning coming soon." },
+  "Page of Pentacles":   { upright: "Page of Pentacles — upright meaning coming soon.", inverted: "Page of Pentacles — inverted meaning coming soon." },
+  "Knight of Pentacles": { upright: "Knight of Pentacles — upright meaning coming soon.", inverted: "Knight of Pentacles — inverted meaning coming soon." },
+  "Queen of Pentacles":  { upright: "Queen of Pentacles — upright meaning coming soon.", inverted: "Queen of Pentacles — inverted meaning coming soon." },
+  "King of Pentacles":   { upright: "King of Pentacles — upright meaning coming soon.", inverted: "King of Pentacles — inverted meaning coming soon." },
+  // ── Swords ──
+  "Ace of Swords":       { upright: "Ace of Swords — upright meaning coming soon.", inverted: "Ace of Swords — inverted meaning coming soon." },
+  "Two of Swords":       { upright: "Two of Swords — upright meaning coming soon.", inverted: "Two of Swords — inverted meaning coming soon." },
+  "Three of Swords":     { upright: "Three of Swords — upright meaning coming soon.", inverted: "Three of Swords — inverted meaning coming soon." },
+  "Four of Swords":      { upright: "Four of Swords — upright meaning coming soon.", inverted: "Four of Swords — inverted meaning coming soon." },
+  "Five of Swords":      { upright: "Five of Swords — upright meaning coming soon.", inverted: "Five of Swords — inverted meaning coming soon." },
+  "Six of Swords":       { upright: "Six of Swords — upright meaning coming soon.", inverted: "Six of Swords — inverted meaning coming soon." },
+  "Seven of Swords":     { upright: "Seven of Swords — upright meaning coming soon.", inverted: "Seven of Swords — inverted meaning coming soon." },
+  "Eight of Swords":     { upright: "Eight of Swords — upright meaning coming soon.", inverted: "Eight of Swords — inverted meaning coming soon." },
+  "Nine of Swords":      { upright: "Nine of Swords — upright meaning coming soon.", inverted: "Nine of Swords — inverted meaning coming soon." },
+  "Ten of Swords":       { upright: "Ten of Swords — upright meaning coming soon.", inverted: "Ten of Swords — inverted meaning coming soon." },
+  "Page of Swords":      { upright: "Page of Swords — upright meaning coming soon.", inverted: "Page of Swords — inverted meaning coming soon." },
+  "Knight of Swords":    { upright: "Knight of Swords — upright meaning coming soon.", inverted: "Knight of Swords — inverted meaning coming soon." },
+  "Queen of Swords":     { upright: "Queen of Swords — upright meaning coming soon.", inverted: "Queen of Swords — inverted meaning coming soon." },
+  "King of Swords":      { upright: "King of Swords — upright meaning coming soon.", inverted: "King of Swords — inverted meaning coming soon." },
+  // ── Wands ──
+  "Ace of Wands":        { upright: "Ace of Wands — upright meaning coming soon.", inverted: "Ace of Wands — inverted meaning coming soon." },
+  "Two of Wands":        { upright: "Two of Wands — upright meaning coming soon.", inverted: "Two of Wands — inverted meaning coming soon." },
+  "Three of Wands":      { upright: "Three of Wands — upright meaning coming soon.", inverted: "Three of Wands — inverted meaning coming soon." },
+  "Four of Wands":       { upright: "Four of Wands — upright meaning coming soon.", inverted: "Four of Wands — inverted meaning coming soon." },
+  "Five of Wands":       { upright: "Five of Wands — upright meaning coming soon.", inverted: "Five of Wands — inverted meaning coming soon." },
+  "Six of Wands":        { upright: "Six of Wands — upright meaning coming soon.", inverted: "Six of Wands — inverted meaning coming soon." },
+  "Seven of Wands":      { upright: "Seven of Wands — upright meaning coming soon.", inverted: "Seven of Wands — inverted meaning coming soon." },
+  "Eight of Wands":      { upright: "Eight of Wands — upright meaning coming soon.", inverted: "Eight of Wands — inverted meaning coming soon." },
+  "Nine of Wands":       { upright: "Nine of Wands — upright meaning coming soon.", inverted: "Nine of Wands — inverted meaning coming soon." },
+  "Ten of Wands":        { upright: "Ten of Wands — upright meaning coming soon.", inverted: "Ten of Wands — inverted meaning coming soon." },
+  "Page of Wands":       { upright: "Page of Wands — upright meaning coming soon.", inverted: "Page of Wands — inverted meaning coming soon." },
+  "Knight of Wands":     { upright: "Knight of Wands — upright meaning coming soon.", inverted: "Knight of Wands — inverted meaning coming soon." },
+  "Queen of Wands":      { upright: "Queen of Wands — upright meaning coming soon.", inverted: "Queen of Wands — inverted meaning coming soon." },
+  "King of Wands":       { upright: "King of Wands — upright meaning coming soon.", inverted: "King of Wands — inverted meaning coming soon." },
+};
+
+// ── Deck ─────────────────────────────────────────────────────────────────────
 const MAJOR = [
   "The Fool","The Magician","The High Priestess","The Empress","The Emperor",
   "The Hierophant","The Lovers","The Chariot","Strength","The Hermit",
   "Wheel of Fortune","Justice","The Hanged Man","Death","Temperance",
   "The Devil","The Tower","The Star","The Moon","The Sun","Judgement","The World"
 ];
-
 function buildMinor(suit, offset) {
   const ranks = ["Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Page","Knight","Queen","King"];
   return ranks.map((r, i) => ({ name: `${r} of ${suit}`, suit, num: offset + i + 1 }));
 }
-
 const DECK = [
   ...MAJOR.map((name, i) => ({ name, suit: "Major Arcana", num: i + 1 })),
   ...buildMinor("Cups", 22),
@@ -349,22 +528,42 @@ const DECK = [
   ...buildMinor("Swords", 50),
   ...buildMinor("Wands", 64),
 ];
-
 const ORDINALS = n => {
   if (n >= 11 && n <= 13) return n + "th";
   const s = ["th","st","nd","rd"];
   return n + (s[n % 10] || s[0]);
 };
 
+// ── Popup ─────────────────────────────────────────────────────────────────────
+function showPopup(name, suit, isInverted) {
+  const meanings = MEANINGS[name] || { upright: name, inverted: name };
+  const popup = document.getElementById('tarot-popup');
+  document.getElementById('popup-suit').textContent = suit;
+  document.getElementById('popup-name').textContent = name;
+  document.getElementById('popup-badge').innerHTML = isInverted
+    ? '<span class="inverted-badge">Inverted</span>'
+    : '<span class="upright-badge">Upright</span>';
+  document.getElementById('popup-orientation-label').textContent = isInverted ? 'Inverted Meaning' : 'Upright Meaning';
+  document.getElementById('popup-meaning').textContent = isInverted ? meanings.inverted : meanings.upright;
+  popup.classList.toggle('inverted-popup', isInverted);
+  popup.style.display = 'block';
+  document.getElementById('popup-overlay').style.display = 'block';
+}
+function hidePopup() {
+  document.getElementById('tarot-popup').style.display = 'none';
+  document.getElementById('popup-overlay').style.display = 'none';
+}
+
+// ── Draw ──────────────────────────────────────────────────────────────────────
 function draw() {
   const n = parseInt(document.getElementById("num-cards").value);
   const out = document.getElementById("output");
+  hidePopup();
 
   if (isNaN(n) || n < 0 || n > 78) {
     out.innerHTML = '<p class="error-msg">Please enter a number between 0 and 78.</p>';
     return;
   }
-
   if (n === 0) {
     const suits = ["Major Arcana","Cups","Pentacles","Swords","Wands"];
     let html = '';
@@ -396,15 +595,25 @@ function draw() {
       ? '<span class="inverted-badge">Inverted</span>'
       : '<span class="upright-badge">Upright</span>';
     html += `
-      <div class="card ${inverted ? 'inverted-card' : ''}" style="animation-delay:${delay}">
+      <div class="card ${inverted ? 'inverted-card' : ''}" style="animation-delay:${delay}"
+           data-name="${card.name}" data-suit="${card.suit}" data-inverted="${inverted}">
         <div class="card-pos">${ORDINALS(i+1)} card</div>
         <div class="card-name">${card.name}</div>
         <div class="card-meta">Card #${card.num} &middot; ${card.suit}</div>
         ${badge}
+        <p class="hover-hint">Hover to reveal meaning</p>
       </div>`;
   });
   html += '</div>';
   out.innerHTML = html;
+
+  // Wire up hover listeners
+  document.querySelectorAll('.card[data-name]').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      showPopup(el.dataset.name, el.dataset.suit, el.dataset.inverted === 'true');
+    });
+    el.addEventListener('mouseleave', hidePopup);
+  });
 }
 
 draw();
