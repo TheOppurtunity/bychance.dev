@@ -7,8 +7,11 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #0d0d0d; color: #eee; font-family: 'Segoe UI', sans-serif; min-height: 100vh; }
-  header { background: #1a1a2e; padding: 16px 24px; border-bottom: 2px solid #e63946; }
-  h1 { font-size: 1.4rem; color: #fff; letter-spacing: 1px; }
+  header { width: 100%; background: #111827; border-bottom: 1px solid #1f2937; padding: 14px 24px; display: flex; align-items: center; gap: 16px; }
+  .back-link { color: #f97316; text-decoration: none; font-size: 0.85rem; }
+  .back-link:hover { text-decoration: underline; }
+  header h1 { font-size: 1.2rem; color: #fff; }
+  header span { font-size: 0.8rem; color: #6b7280; }
   .tabs { display: flex; gap: 8px; padding: 12px 24px; background: #111; border-bottom: 1px solid #333; }
   .tab { padding: 8px 20px; border: 1px solid #444; border-radius: 4px; cursor: pointer; font-size: 0.9rem; background: #1e1e1e; color: #aaa; transition: all 0.2s; }
   .tab.active { background: #e63946; border-color: #e63946; color: #fff; font-weight: bold; }
@@ -168,8 +171,11 @@
 </style>
 </head>
 <body>
-<header><h1>⚡ MCU Power Scale Bracket</h1></header>
-<div class="tabs">
+<header>
+  <a class="back-link" href="index.html">← bychance.dev</a>
+  <h1>Tarot Reading</h1>
+  <span>Mystical · Interactive</span>
+</header><div class="tabs">
   <div class="tab active" onclick="setMode('heroes')">Heroes (64)</div>
   <div class="tab" onclick="setMode('villains')">Villains (64)</div>
   <div class="tab" onclick="setMode('both')">Both (128)</div>
