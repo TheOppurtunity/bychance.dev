@@ -27,7 +27,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      font-size: 14px;
+      font-size: 16px;
       min-height: 100vh;
     }
 
@@ -348,6 +348,62 @@
     .btn.primary:hover { background: #ea6c0a; border-color: #ea6c0a; }
     .btn.danger:hover { background: rgba(239,68,68,0.1); border-color: var(--red); color: var(--red); }
 
+    /* ── Study Modal ── */
+    .topic-check-list { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; max-height: 260px; overflow-y: auto; }
+    .topic-check-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--surface2); border-radius: 8px; cursor: pointer; border: 1px solid transparent; transition: border-color 0.15s; }
+    .topic-check-item:hover { border-color: var(--border); }
+    .topic-check-item input[type=checkbox] { accent-color: var(--orange); width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+    .topic-check-label { font-size: 0.88rem; color: var(--text); cursor: pointer; flex: 1; }
+    .topic-check-meta { font-size: 0.72rem; color: var(--text-dim); white-space: nowrap; }
+    .flip-toggle { display: flex; gap: 8px; margin-top: 6px; }
+    .flip-option { flex: 1; padding: 10px 8px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface2); color: var(--text-muted); font-size: 0.78rem; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.5; }
+    .flip-option:hover { border-color: #4b5563; color: var(--text); }
+    .flip-option.selected { border-color: var(--orange); color: var(--orange); background: rgba(249,115,22,0.08); }
+
+    /* ── Study progress ── */
+    .study-progress-wrap { margin-bottom: 24px; }
+    .study-progress-bar-track { background: var(--surface2); border-radius: 99px; height: 6px; overflow: hidden; margin-bottom: 8px; }
+    .study-progress-bar-fill { height: 100%; border-radius: 99px; background: var(--orange); transition: width 0.4s ease; }
+    .study-counter { font-size: 0.8rem; color: var(--text-dim); text-align: right; }
+
+    /* ── Flashcard ── */
+    .card-scene { perspective: 1200px; width: 100%; max-width: 640px; margin: 0 auto 28px; }
+    .card-inner { position: relative; width: 100%; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1); }
+    .card-inner.is-flipped { transform: rotateY(180deg); }
+    .card-face {
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+      padding: 48px 36px; min-height: 300px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    }
+    .card-back-face { position: absolute; inset: 0; transform: rotateY(180deg); border-radius: 18px; }
+    .card-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim); margin-bottom: 20px; }
+    .card-main-text { font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.4; }
+    .card-main-formula { overflow-x: auto; width: 100%; }
+    .card-main-formula .katex-display { margin: 0; }
+    .card-desc { font-size: 0.8rem; color: var(--text-dim); margin-top: 16px; font-style: italic; }
+    .card-tap-hint { font-size: 0.72rem; color: var(--text-dim); margin-top: 28px; opacity: 0.5; }
+
+    /* ── Grade buttons ── */
+    .grade-row { display: flex; gap: 16px; justify-content: center; margin-top: 4px; transition: opacity 0.2s; }
+    .grade-row.hidden { opacity: 0; pointer-events: none; }
+    .grade-btn { display: flex; align-items: center; gap: 8px; padding: 13px 32px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.18s; color: var(--text-muted); }
+    .grade-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+    .grade-btn.correct:hover { background: rgba(34,197,94,0.12); border-color: var(--green); color: var(--green); }
+    .grade-btn.wrong:hover { background: rgba(239,68,68,0.1); border-color: var(--red); color: var(--red); }
+
+    /* ── Summary ── */
+    .summary-stats { display: flex; gap: 14px; margin-bottom: 28px; flex-wrap: wrap; }
+    .stat-box { flex: 1; min-width: 90px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 800; }
+    .stat-label { font-size: 0.72rem; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .missed-section-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 12px; }
+    .missed-list { display: flex; flex-direction: column; gap: 10px; }
+    .missed-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 10px; padding: 14px 16px; }
+    .missed-item-name { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    .missed-item-formula { overflow-x: auto; text-align: center; }
+    .summary-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+
     /* ── Responsive ── */
     @media (max-width: 580px) {
       #app { padding: 20px 12px 60px; }
@@ -502,6 +558,12 @@ const DEFAULT_DATA = { classes: [
         { id:'law2', name:'Law of Cosines',       latex:'c^2 = a^2 + b^2 - 2ab\\cos C',                                          desc:'' },
         { id:'law3', name:'Triangle Area',        latex:'A = \\dfrac{1}{2}ab\\sin C',                                             desc:'' },
       ]},
+      { id:'trig-apps', name:'Applications', formulas:[
+        { id:'ta1', name:'Arc Length',            latex:'s = r\\theta',                                                            desc:'θ in radians' },
+        { id:'ta2', name:'Area of a Sector',      latex:'A = \\dfrac{1}{2}r^2\\theta',                                            desc:'θ in radians' },
+        { id:'ta3', name:'Angular Velocity',      latex:'\\omega = \\dfrac{\\theta}{t}',                                          desc:'Radians per unit time' },
+        { id:'ta4', name:'Linear Velocity',       latex:'v = r\\omega = \\dfrac{s}{t}',                                           desc:'v = linear speed, r = radius, ω = angular velocity' },
+      ]},
   ]},
 
   // ── CALCULUS I ────────────────────────────────────────────────
@@ -631,6 +693,19 @@ let nav       = { view:'home', classId:null, topicId:null };
 let editMode  = false;
 
 // ═══════════════════════════════════════════════════════════════════
+//  STUDY SESSION STATE
+// ═══════════════════════════════════════════════════════════════════
+let study = {
+  queue:      [],        // [{formula, topicName, cls}] — grows as wrong cards reinsert
+  index:      0,         // current position in queue
+  flipped:    false,
+  wrongCount: 0,         // cumulative 👎 presses — counts duplicates
+  missedIds:  new Set(), // unique formula IDs missed at least once (for review list)
+  mode:       'name',    // 'name' = show name → recall formula | 'formula' = show formula → recall name
+  totalCards: 0,         // original deck size (before any reinsertions)
+};
+
+// ═══════════════════════════════════════════════════════════════════
 //  PERSISTENCE
 // ═══════════════════════════════════════════════════════════════════
 function loadData() {
@@ -691,6 +766,7 @@ function renderApp() {
   if (nav.view === 'home')  renderHome();
   if (nav.view === 'class') renderClass();
   if (nav.view === 'topic') renderTopic();
+  if (nav.view === 'study') renderStudy();
 }
 
 // ── Home: class grid ─────────────────────────────────────────────
@@ -739,9 +815,12 @@ function renderClass() {
       <span class="bc-current">${escH(cls.name)}</span>
     </div>
     <button class="back-btn" onclick="goBack()">← Back</button>
-    <div class="page-heading">
-      <div class="page-title" style="color:${cls.accent}">${escH(cls.name)}</div>
-      <div class="page-subtitle">Choose a topic to see its formulas</div>
+    <div class="page-heading" style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div>
+        <div class="page-title" style="color:${cls.accent}">${escH(cls.name)}</div>
+        <div class="page-subtitle">Choose a topic to see its formulas</div>
+      </div>
+      <button class="btn primary" style="flex-shrink:0" onclick="openStudyModal('${cls.id}')">▶ Study</button>
     </div>
     <div class="topic-grid">`;
 
@@ -991,6 +1070,264 @@ function deleteFormula(formulaId) {
   const topic = getTopic(cls, nav.topicId);
   topic.formulas = topic.formulas.filter(f => f.id !== formulaId);
   saveData(); renderApp();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  STUDY SESSION
+// ═══════════════════════════════════════════════════════════════════
+function openStudyModal(classId) {
+  const cls = getClass(classId);
+  if (!cls || cls.topics.length === 0) { alert('No topics to study.'); return; }
+
+  const topicItems = cls.topics.map(t => `
+    <label class="topic-check-item">
+      <input type="checkbox" class="study-topic-cb" value="${t.id}" checked />
+      <span class="topic-check-label">${escH(t.name)}</span>
+      <span class="topic-check-meta">${t.formulas.length} cards</span>
+    </label>`).join('');
+
+  showModal(`
+    <h3>Start Study Session</h3>
+    <div class="form-group">
+      <label class="form-label">Topics to include</label>
+      <div class="topic-check-list">${topicItems}</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Card Mode</label>
+      <div class="flip-toggle">
+        <div class="flip-option selected" id="mode-name" onclick="selectStudyMode('name')">
+          <strong>Name → Formula</strong><br>See the name, recall the formula
+        </div>
+        <div class="flip-option" id="mode-formula" onclick="selectStudyMode('formula')">
+          <strong>Formula → Name</strong><br>See the formula, recall the name
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn primary" onclick="startStudySession('${classId}')">▶ Start Session</button>
+    </div>`);
+}
+
+function selectStudyMode(mode) {
+  document.getElementById('mode-name').classList.toggle('selected', mode === 'name');
+  document.getElementById('mode-formula').classList.toggle('selected', mode === 'formula');
+}
+
+function startStudySession(classId) {
+  const cls        = getClass(classId);
+  const checkedIds = [...document.querySelectorAll('.study-topic-cb:checked')].map(cb => cb.value);
+  const mode       = document.getElementById('mode-formula').classList.contains('selected') ? 'formula' : 'name';
+
+  if (checkedIds.length === 0) { alert('Select at least one topic.'); return; }
+
+  let queue = [];
+  checkedIds.forEach(topicId => {
+    const topic = getTopic(cls, topicId);
+    if (topic) topic.formulas.forEach(f => queue.push({ formula: f, topicName: topic.name, cls }));
+  });
+
+  if (queue.length === 0) { alert('No formulas found in selected topics.'); return; }
+
+  // Fisher-Yates shuffle
+  for (let i = queue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [queue[i], queue[j]] = [queue[j], queue[i]];
+  }
+
+  study.queue      = queue;
+  study.index      = 0;
+  study.flipped    = false;
+  study.wrongCount = 0;
+  study.missedIds  = new Set();
+  study.mode       = mode;
+  study.totalCards = queue.length;
+
+  closeModal();
+  navigateTo('study', classId);
+}
+
+function renderStudy() {
+  const cls = getClass(nav.classId);
+
+  // Session complete?
+  if (study.index >= study.queue.length) { renderStudySummary(); return; }
+
+  const item        = study.queue[study.index];
+  const { formula } = item;
+  const total       = study.queue.length;
+  const current     = study.index + 1;
+  const pct         = Math.round((study.index / total) * 100);
+
+  let frontLabel, frontContent, backLabel, backContent;
+  if (study.mode === 'name') {
+    frontLabel   = 'What is the formula for…';
+    frontContent = `<div class="card-main-text">${escH(formula.name)}</div>`;
+    backLabel    = formula.name;
+    backContent  = `<div class="card-main-formula">${renderLatex(formula.latex, true)}</div>
+                    ${formula.desc ? `<div class="card-desc">${escH(formula.desc)}</div>` : ''}`;
+  } else {
+    frontLabel   = 'What is this formula called?';
+    frontContent = `<div class="card-main-formula">${renderLatex(formula.latex, true)}</div>`;
+    backLabel    = 'Answer';
+    backContent  = `<div class="card-main-text">${escH(formula.name)}</div>
+                    ${formula.desc ? `<div class="card-desc">${escH(formula.desc)}</div>` : ''}`;
+  }
+
+  const flipped = study.flipped;
+
+  document.getElementById('app').innerHTML = `
+    <div class="breadcrumb">
+      <span class="bc-link" onclick="navigateTo('home')">All Courses</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-link" onclick="exitStudy()">${escH(cls.name)}</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">Study Session</span>
+    </div>
+    <div class="study-progress-wrap">
+      <div class="study-progress-bar-track">
+        <div class="study-progress-bar-fill" style="width:${pct}%"></div>
+      </div>
+      <div class="study-counter">Card ${current} of ${total}</div>
+    </div>
+    <div class="card-scene">
+      <div class="card-inner${flipped ? ' is-flipped' : ''}" id="study-card" onclick="flipCard()">
+        <div class="card-face" style="border-top:3px solid ${cls.accent}">
+          <div class="card-label">${escH(frontLabel)}</div>
+          ${frontContent}
+          <div class="card-tap-hint">click to flip</div>
+        </div>
+        <div class="card-face card-back-face" style="border-top:3px solid ${cls.accent}">
+          <div class="card-label">${escH(backLabel)}</div>
+          ${backContent}
+        </div>
+      </div>
+    </div>
+    <div class="grade-row${flipped ? '' : ' hidden'}" id="grade-row">
+      <button class="grade-btn wrong" onclick="gradeCard(false)">👎 Missed it</button>
+      <button class="grade-btn correct" onclick="gradeCard(true)">👍 Got it</button>
+    </div>`;
+}
+
+function flipCard() {
+  study.flipped = !study.flipped;
+  const card     = document.getElementById('study-card');
+  const gradeRow = document.getElementById('grade-row');
+  if (card)     card.classList.toggle('is-flipped', study.flipped);
+  if (gradeRow) gradeRow.classList.toggle('hidden', !study.flipped);
+}
+
+function gradeCard(correct) {
+  const item = study.queue[study.index];
+
+  if (!correct) {
+    study.wrongCount++;                    // always increment — counts duplicates
+    study.missedIds.add(item.formula.id);  // set deduplicates for the review list
+    // Spaced repetition lite: reinsert card 3 positions ahead
+    const insertAt = Math.min(study.index + 3, study.queue.length);
+    study.queue.splice(insertAt, 0, { ...item });
+  }
+
+  study.index++;
+  study.flipped = false;
+  renderStudy();
+}
+
+function exitStudy() {
+  if (!confirm('Exit study session?')) return;
+  goBack();
+}
+
+function renderStudySummary() {
+  const cls         = getClass(nav.classId);
+  const missedIds   = study.missedIds;
+  const total       = study.totalCards;
+  const firstTry    = total - missedIds.size; // formulas never missed
+
+  // Collect one item per missed formula for the review list
+  const seen = new Set();
+  const missedItems = study.queue.filter(item => {
+    if (missedIds.has(item.formula.id) && !seen.has(item.formula.id)) {
+      seen.add(item.formula.id);
+      return true;
+    }
+    return false;
+  });
+
+  const pct        = total > 0 ? firstTry / total : 1;
+  const scoreColor = pct >= 0.8 ? 'var(--green)' : pct >= 0.5 ? 'var(--orange)' : 'var(--red)';
+
+  const missedHtml = missedItems.length > 0
+    ? `<div class="missed-section-title">Formulas to review (${missedItems.length})</div>
+       <div class="missed-list">
+         ${missedItems.map(item => `
+           <div class="missed-item">
+             <div class="missed-item-name">${escH(item.formula.name)}</div>
+             <div class="missed-item-formula">${renderLatex(item.formula.latex, true)}</div>
+             ${item.formula.desc ? `<div class="card-desc" style="text-align:center;margin-top:8px">${escH(item.formula.desc)}</div>` : ''}
+           </div>`).join('')}
+       </div>`
+    : `<p style="color:var(--green);font-size:0.95rem;text-align:center;padding:24px 0">🎉 Perfect score — all formulas correct!</p>`;
+
+  document.getElementById('app').innerHTML = `
+    <div class="breadcrumb">
+      <span class="bc-link" onclick="navigateTo('home')">All Courses</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-link" onclick="navigateTo('class','${cls.id}')">${escH(cls.name)}</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">Session Complete</span>
+    </div>
+    <div class="page-heading">
+      <div class="page-title">Session <span>Complete</span></div>
+      <div class="page-subtitle">${escH(cls.name)}</div>
+    </div>
+    <div class="summary-stats">
+      <div class="stat-box">
+        <div class="stat-num" style="color:${scoreColor}">${firstTry}</div>
+        <div class="stat-label">First Try</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--red)">${study.wrongCount}</div>
+        <div class="stat-label">Total Misses</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">${total}</div>
+        <div class="stat-label">Cards</div>
+      </div>
+    </div>
+    ${missedHtml}
+    <div class="summary-actions">
+      <button class="btn" onclick="navigateTo('class','${cls.id}')">← Back to Topics</button>
+      ${missedItems.length > 0 ? `<button class="btn primary" onclick="retryMissed()">↺ Retry Missed (${missedItems.length})</button>` : ''}
+    </div>`;
+}
+
+function retryMissed() {
+  const missedIds = study.missedIds;
+  const seen      = new Set();
+  const missedItems = study.queue.filter(item => {
+    if (missedIds.has(item.formula.id) && !seen.has(item.formula.id)) {
+      seen.add(item.formula.id);
+      return true;
+    }
+    return false;
+  });
+
+  const queue = [...missedItems];
+  for (let i = queue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [queue[i], queue[j]] = [queue[j], queue[i]];
+  }
+
+  study.queue      = queue;
+  study.index      = 0;
+  study.flipped    = false;
+  study.wrongCount = 0;
+  study.missedIds  = new Set();
+  study.totalCards = queue.length;
+  // mode stays the same
+
+  renderStudy();
 }
 
 // ═══════════════════════════════════════════════════════════════════
