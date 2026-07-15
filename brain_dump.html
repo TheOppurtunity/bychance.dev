@@ -27,7 +27,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      font-size: 16px;
+      font-size: 22px;
       min-height: 100vh;
     }
 
@@ -63,9 +63,9 @@
 
     /* ── App Shell ── */
     #app {
-      max-width: 920px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 36px 20px 80px;
+      padding: 36px 40px 80px;
     }
 
     /* ── Page heading ── */
@@ -179,8 +179,8 @@
       gap: 16px;
     }
     .formula-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
       border-radius: 12px;
       padding: 20px 22px;
       position: relative;
@@ -193,25 +193,26 @@
       height: 2px;
     }
     .formula-card-name {
-      font-size: 0.7rem;
+      font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: var(--text-dim);
+      color: #111827;
       margin-bottom: 14px;
     }
     .formula-display {
       overflow-x: auto;
       text-align: center;
       padding: 6px 0 10px;
+      color: #111827;
     }
     .formula-display .katex-display { margin: 0; }
     .formula-card-desc {
-      font-size: 0.76rem;
-      color: var(--text-dim);
+      font-size: 0.95rem;
+      color: #111827;
       margin-top: 12px;
       font-style: italic;
-      border-top: 1px solid var(--border-sub);
+      border-top: 1px solid #e5e7eb;
       padding-top: 10px;
       line-height: 1.55;
     }
@@ -377,11 +378,11 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
     }
     .card-back-face { position: absolute; inset: 0; transform: rotateY(180deg); border-radius: 18px; }
-    .card-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim); margin-bottom: 20px; }
+    .card-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text); margin-bottom: 20px; }
     .card-main-text { font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.4; }
     .card-main-formula { overflow-x: auto; width: 100%; }
     .card-main-formula .katex-display { margin: 0; }
-    .card-desc { font-size: 0.8rem; color: var(--text-dim); margin-top: 16px; font-style: italic; }
+    .card-desc { font-size: 0.8rem; color: var(--text); margin-top: 16px; font-style: italic; }
     .card-tap-hint { font-size: 0.72rem; color: var(--text-dim); margin-top: 28px; opacity: 0.5; }
 
     /* ── Grade buttons ── */
@@ -444,26 +445,24 @@ const ACCENTS = ['#f97316','#3b82f6','#8b5cf6','#14b8a6','#f59e0b','#f43f5e','#1
 const DEFAULT_DATA = { classes: [
 
   // ── ALGEBRA ────────────────────────────────────────────────────
+  // Organized to mirror the College Algebra lecture notes:
+  //   Unit 1 Algebraic Manipulation → Unit 2 Equations & Inequalities →
+  //   Unit 3 Functions → Unit 4 Special Functions → Unit 5 Systems of Equations
+  // Any pre-existing cards that don't come from those notes live in
+  // "Additional Formulas" at the end so nothing was deleted.
   { id:'algebra', name:'Algebra', accent:'#f97316',
     symbol:'x = \\dfrac{-b \\pm \\sqrt{b^2-4ac}}{2a}',
     topics:[
-      { id:'linear', name:'Linear Equations & Graphing', formulas:[
-        { id:'l1', name:'Slope-Intercept Form',    latex:'y = mx + b',                                                              desc:'m = slope, b = y-intercept' },
-        { id:'l2', name:'Point-Slope Form',        latex:'y - y_1 = m(x - x_1)',                                                   desc:'Line through (x₁, y₁) with slope m' },
-        { id:'l3', name:'Standard Form',           latex:'Ax + By = C',                                                            desc:'' },
-        { id:'l4', name:'Slope',                   latex:'m = \\dfrac{y_2 - y_1}{x_2 - x_1}',                                     desc:'Rise over run between two points' },
-        { id:'l5', name:'Distance Formula',        latex:'d = \\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}',                                  desc:'' },
-        { id:'l6', name:'Midpoint Formula',        latex:'M = \\left(\\dfrac{x_1+x_2}{2},\\,\\dfrac{y_1+y_2}{2}\\right)',        desc:'' },
+
+      // Unit 1.1
+      { id:'alg-frac', name:'Fractions & Order of Operations', formulas:[
+        { id:'af1', name:'GEMDAS Order of Operations', latex:'\\text{G, E, M/D, A/S}',                                              desc:'Grouping, Exponents, Multiplication/Division (L→R), Addition/Subtraction (L→R)' },
+        { id:'af2', name:'Multiplying Fractions',       latex:'\\dfrac{a}{b}\\cdot\\dfrac{c}{d} = \\dfrac{ac}{bd}',                 desc:'' },
+        { id:'af3', name:'Dividing Fractions',          latex:'\\dfrac{a}{b}\\div\\dfrac{c}{d} = \\dfrac{a}{b}\\cdot\\dfrac{d}{c}', desc:'Multiply by the reciprocal of the divisor' },
       ]},
-      { id:'quadratics', name:'Quadratics', formulas:[
-        { id:'q1', name:'Standard Form',           latex:'f(x) = ax^2 + bx + c',                                                  desc:'' },
-        { id:'q2', name:'Vertex Form',             latex:'f(x) = a(x-h)^2 + k',                                                   desc:'Vertex at (h, k)' },
-        { id:'q3', name:'Quadratic Formula',       latex:'x = \\dfrac{-b \\pm \\sqrt{b^2-4ac}}{2a}',                             desc:'Solutions to ax² + bx + c = 0' },
-        { id:'q4', name:'Discriminant',            latex:'\\Delta = b^2 - 4ac',                                                   desc:'> 0: two real roots  |  = 0: one  |  < 0: none' },
-        { id:'q5', name:'Vertex x-coordinate',    latex:'x_v = -\\dfrac{b}{2a}',                                                  desc:'' },
-        { id:'q6', name:'Completing the Square',  latex:'x^2 + bx + \\left(\\dfrac{b}{2}\\right)^2 = \\left(x+\\dfrac{b}{2}\\right)^2', desc:'Add (b/2)² to both sides' },
-      ]},
-      { id:'exponents', name:'Exponents & Radicals', formulas:[
+
+      // Unit 1.2
+      { id:'exponents', name:'Exponent Rules', formulas:[
         { id:'e1', name:'Product Rule',            latex:'a^m \\cdot a^n = a^{m+n}',                                              desc:'' },
         { id:'e2', name:'Quotient Rule',           latex:'\\dfrac{a^m}{a^n} = a^{m-n}',                                           desc:'' },
         { id:'e3', name:'Power Rule',              latex:'(a^m)^n = a^{mn}',                                                       desc:'' },
@@ -471,20 +470,121 @@ const DEFAULT_DATA = { classes: [
         { id:'e5', name:'Zero Exponent',           latex:'a^0 = 1 \\quad (a \\neq 0)',                                            desc:'' },
         { id:'e6', name:'Rational Exponent',       latex:'a^{m/n} = \\sqrt[n]{a^m}',                                              desc:'' },
       ]},
+
+      // Unit 1.3
+      { id:'polynomials', name:'Factoring Formulas', formulas:[
+        { id:'p1', name:'Difference of Squares',  latex:'a^2 - b^2 = (a+b)(a-b)',                                                 desc:'' },
+        { id:'p2', name:'Perfect Square (sum)',    latex:'(a+b)^2 = a^2 + 2ab + b^2',                                             desc:'' },
+        { id:'p3', name:'Perfect Square (diff)',   latex:'(a-b)^2 = a^2 - 2ab + b^2',                                             desc:'' },
+        { id:'p4', name:'Sum of Cubes',            latex:'a^3+b^3 = (a+b)(a^2-ab+b^2)',                                           desc:'' },
+        { id:'p5', name:'Difference of Cubes',    latex:'a^3-b^3 = (a-b)(a^2+ab+b^2)',                                           desc:'' },
+      ]},
+
+      // Unit 1.4
+      { id:'alg-radicals', name:'Radicals & Complex Numbers', formulas:[
+        { id:'ac1', name:'Imaginary Unit',        latex:'i = \\sqrt{-1} \\qquad i^2 = -1',                                        desc:'' },
+        { id:'ac2', name:'Radical Product Rule',  latex:'\\sqrt{ab} = \\sqrt{a}\\,\\sqrt{b}',                                     desc:'' },
+        { id:'ac3', name:'Radical Quotient Rule', latex:'\\sqrt{\\dfrac{a}{b}} = \\dfrac{\\sqrt{a}}{\\sqrt{b}}',                  desc:'' },
+        { id:'ac4', name:'Complex Conjugate',     latex:'a+bi \\ \\longleftrightarrow\\ a-bi',                                    desc:'Multiply by the conjugate to rationalize a denominator with a complex number' },
+      ]},
+
+      // Unit 1.5
+      { id:'alg-rational-expr', name:'Rational Expressions', formulas:[
+        { id:'re1', name:'Multiplying Rational Expressions', latex:'\\dfrac{A}{B}\\cdot\\dfrac{C}{D} = \\dfrac{AC}{BD}',                       desc:'' },
+        { id:'re2', name:'Dividing Rational Expressions',    latex:'\\dfrac{A}{B}\\div\\dfrac{C}{D} = \\dfrac{A}{B}\\cdot\\dfrac{D}{C}',       desc:'' },
+      ]},
+
+      // Unit 2.2
+      { id:'quadratics', name:'Quadratic Equations', formulas:[
+        { id:'q3', name:'Quadratic Formula',       latex:'x = \\dfrac{-b \\pm \\sqrt{b^2-4ac}}{2a}',                             desc:'Solutions to ax² + bx + c = 0' },
+        { id:'q4', name:'Discriminant',            latex:'\\Delta = b^2 - 4ac',                                                   desc:'> 0: two real roots  |  = 0: one  |  < 0: none' },
+        { id:'q6', name:'Completing the Square',  latex:'x^2 + bx + \\left(\\dfrac{b}{2}\\right)^2 = \\left(x+\\dfrac{b}{2}\\right)^2', desc:'Add (b/2)² to both sides' },
+      ]},
+
+      // Unit 2.3
+      { id:'alg-higher-poly', name:'Higher-Degree Polynomial Equations', formulas:[
+        { id:'rzt1', name:'Rational Zeros Theorem', latex:'x = \\dfrac{p}{q}',                                                    desc:'p must be a factor of the constant term; q must be a factor of the leading coefficient' },
+      ]},
+
+      // Unit 2.5
+      { id:'alg-rational-eq', name:'Rational Equations & Applications', formulas:[
+        { id:'wr1', name:'Team Work Formula',      latex:'\\dfrac{t}{t_1} + \\dfrac{t}{t_2} = 1',                                 desc:'t₁, t₂ = time for each person working alone; t = time working together' },
+        { id:'drt1', name:'Distance-Rate-Time',    latex:'d = rt',                                                                 desc:'' },
+      ]},
+
+      // Unit 3.1
+      { id:'alg-func-ops', name:'Function Operations', formulas:[
+        { id:'fo1', name:'Sum of Functions',        latex:'(f+g)(x) = f(x)+g(x)',                                                desc:'' },
+        { id:'fo2', name:'Difference of Functions', latex:'(f-g)(x) = f(x)-g(x)',                                                desc:'' },
+        { id:'fo3', name:'Product of Functions',    latex:'(fg)(x) = f(x)\\cdot g(x)',                                           desc:'' },
+        { id:'fo4', name:'Quotient of Functions',   latex:'\\left(\\dfrac{f}{g}\\right)\\!(x) = \\dfrac{f(x)}{g(x)}',            desc:'g(x) ≠ 0' },
+      ]},
+
+      // Unit 3.2
+      { id:'alg-even-odd', name:'Even and Odd Functions', formulas:[
+        { id:'eo1', name:'Even Function', latex:'f(-x) = f(x)',   desc:'Symmetric about the y-axis' },
+        { id:'eo2', name:'Odd Function',  latex:'f(-x) = -f(x)',  desc:'Symmetric about the origin' },
+      ]},
+
+      // Unit 3.3
+      { id:'linear', name:'Linear Functions', formulas:[
+        { id:'l1', name:'Slope-Intercept Form',    latex:'y = mx + b',                                                              desc:'m = slope, b = y-intercept' },
+        { id:'l2', name:'Point-Slope Form',        latex:'y - y_1 = m(x - x_1)',                                                   desc:'Line through (x₁, y₁) with slope m' },
+        { id:'l3', name:'General/Standard Form',   latex:'Ax + By = C',                                                            desc:'' },
+        { id:'l4', name:'Slope',                   latex:'m = \\dfrac{y_2 - y_1}{x_2 - x_1}',                                     desc:'Rise over run between two points' },
+        { id:'lpp1', name:'Parallel & Perpendicular Slopes', latex:'m_{\\parallel} = m \\qquad m_{\\perp} = -\\dfrac{1}{m}',        desc:'Parallel lines share the same slope; perpendicular slopes are negative reciprocals' },
+      ]},
+
+      // Unit 3.4
+      { id:'quad-functions', name:'Quadratic Functions', formulas:[
+        { id:'q1', name:'General Form',            latex:'f(x) = ax^2 + bx + c',                                                  desc:'' },
+        { id:'q2', name:'Vertex Form',             latex:'f(x) = a(x-h)^2 + k',                                                   desc:'Vertex at (h, k)' },
+        { id:'q5', name:'Vertex x-coordinate',    latex:'x_v = -\\dfrac{b}{2a}',                                                  desc:'' },
+        { id:'pm1', name:'Projectile Motion',      latex:'h(t) = -4.9t^2+v_0t+h_0',                                               desc:'Meters, t in seconds. For feet, use h(t) = -16t² + v₀t + h₀' },
+      ]},
+
+      // Unit 4.1
+      { id:'alg-asymptotes', name:'Rational Functions & Asymptotes', formulas:[
+        { id:'ra1', name:'Horizontal Asymptote Rules', latex:'\\text{BOBO: } y=0 \\qquad \\text{BOTN: none} \\qquad \\text{Equal degrees: } y=\\dfrac{a_n}{b_n}', desc:'Bigger On Bottom → y=0.  Bigger On Top → None.  Equal degrees → ratio of leading coefficients ("Eats Dog Chow")' },
+      ]},
+
+      // Unit 4.2
+      { id:'alg-composition', name:'Function Composition', formulas:[
+        { id:'fc1', name:'Composite Function', latex:'(f\\circ g)(x) = f(g(x))', desc:'' },
+      ]},
+
+      // Unit 4.3
       { id:'logarithms', name:'Logarithms', formulas:[
         { id:'g1', name:'Definition',              latex:'\\log_b x = y \\iff b^y = x',                                           desc:'' },
+        { id:'lp1', name:'Log of 1',               latex:'\\log_a(1) = 0',                                                        desc:'' },
+        { id:'lp2', name:'Log Base Equals Itself', latex:'\\log_a(a) = 1',                                                        desc:'' },
+        { id:'lp3', name:'Inverse Property (exp of log)', latex:'a^{\\log_a x} = x',                                              desc:'' },
+        { id:'lp4', name:'Inverse Property (log of exp)', latex:'\\log_a(a^x) = x',                                               desc:'' },
         { id:'g2', name:'Product Rule',            latex:'\\log_b(mn) = \\log_b m + \\log_b n',                                   desc:'' },
         { id:'g3', name:'Quotient Rule',           latex:'\\log_b\\!\\left(\\dfrac{m}{n}\\right) = \\log_b m - \\log_b n',       desc:'' },
         { id:'g4', name:'Power Rule',              latex:'\\log_b(m^n) = n\\log_b m',                                             desc:'' },
         { id:'g5', name:'Change of Base',          latex:'\\log_b x = \\dfrac{\\ln x}{\\ln b}',                                  desc:'' },
         { id:'g6', name:'Natural Log Inverse',     latex:'\\ln(e^x) = x \\quad\\text{and}\\quad e^{\\ln x} = x',                 desc:'' },
       ]},
-      { id:'polynomials', name:'Polynomial Identities', formulas:[
-        { id:'p1', name:'Difference of Squares',  latex:'a^2 - b^2 = (a+b)(a-b)',                                                 desc:'' },
-        { id:'p2', name:'Perfect Square (sum)',    latex:'(a+b)^2 = a^2 + 2ab + b^2',                                             desc:'' },
-        { id:'p3', name:'Perfect Square (diff)',   latex:'(a-b)^2 = a^2 - 2ab + b^2',                                             desc:'' },
-        { id:'p4', name:'Sum of Cubes',            latex:'a^3+b^3 = (a+b)(a^2-ab+b^2)',                                           desc:'' },
-        { id:'p5', name:'Difference of Cubes',    latex:'a^3-b^3 = (a-b)(a^2+ab+b^2)',                                           desc:'' },
+
+      // Unit 4.4 / 4.5
+      { id:'alg-exp-log-apps', name:'Exponential & Logarithmic Applications', formulas:[
+        { id:'gd1', name:'Exponential Growth/Decay', latex:'A(t) = A_0 e^{kt}',                                                   desc:'A₀ = initial amount; k > 0 growth, k < 0 decay' },
+        { id:'ci1', name:'Compound Interest',         latex:'A = P\\left(1+\\dfrac{r}{n}\\right)^{nt}',                          desc:'' },
+        { id:'ci2', name:'Continuous Interest',       latex:'A = Pe^{rt}',                                                        desc:'' },
+        { id:'rs1', name:'Richter Scale',             latex:'M = \\log\\!\\left(\\dfrac{x}{x_0}\\right)',                        desc:'x = seismographic reading; x₀ = reading of a zero-level earthquake' },
+        { id:'ph1', name:'pH Scale',                  latex:'pH = -\\log[H^+]',                                                   desc:'[H⁺] = hydrogen ion concentration, moles/liter' },
+      ]},
+
+      // Unit 5.1 / 5.2
+      { id:'alg-systems', name:'Systems & Circles', formulas:[
+        { id:'cir1', name:'Circle Equation', latex:'(x-h)^2+(y-k)^2 = r^2', desc:'Center (h, k), radius r' },
+      ]},
+
+      // Pre-existing cards that don't come from these notes
+      { id:'alg-extra', name:'Additional Formulas', formulas:[
+        { id:'l5', name:'Distance Formula',        latex:'d = \\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}',                                  desc:'' },
+        { id:'l6', name:'Midpoint Formula',        latex:'M = \\left(\\dfrac{x_1+x_2}{2},\\,\\dfrac{y_1+y_2}{2}\\right)',        desc:'' },
         { id:'p6', name:'Binomial Theorem',        latex:'(a+b)^n = \\sum_{k=0}^{n}\\binom{n}{k}a^{n-k}b^k',                    desc:'' },
       ]},
   ]},
@@ -1081,7 +1181,7 @@ function openStudyModal(classId) {
 
   const topicItems = cls.topics.map(t => `
     <label class="topic-check-item">
-      <input type="checkbox" class="study-topic-cb" value="${t.id}" checked />
+      <input type="checkbox" class="study-topic-cb" value="${t.id}" />
       <span class="topic-check-label">${escH(t.name)}</span>
       <span class="topic-check-meta">${t.formulas.length} cards</span>
     </label>`).join('');
@@ -1089,7 +1189,13 @@ function openStudyModal(classId) {
   showModal(`
     <h3>Start Study Session</h3>
     <div class="form-group">
-      <label class="form-label">Topics to include</label>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <label class="form-label" style="margin-bottom:0">Topics to include</label>
+        <div style="display:flex;gap:8px">
+          <button class="btn" style="padding:4px 10px;font-size:0.72rem" onclick="document.querySelectorAll('.study-topic-cb').forEach(cb=>cb.checked=true)">Select All</button>
+          <button class="btn" style="padding:4px 10px;font-size:0.72rem" onclick="document.querySelectorAll('.study-topic-cb').forEach(cb=>cb.checked=false)">Deselect All</button>
+        </div>
+      </div>
       <div class="topic-check-list">${topicItems}</div>
     </div>
     <div class="form-group">
