@@ -786,7 +786,26 @@ const DEFAULT_DATA = { classes: [
 // ═══════════════════════════════════════════════════════════════════
 //  STATE
 // ═══════════════════════════════════════════════════════════════════
-const STORAGE_KEY = 'brain_dump_v1';
+const STORAGE_KEY = 'brain_dump_data';
+
+// DATA_VERSION controls whether a returning visitor's locally saved data gets
+// wiped and replaced with the latest DEFAULT_DATA above.
+//
+// HOW IT WORKS: When someone visits the site, their browser saves a copy of all
+// the courses/topics/formulas to localStorage (including anything they added via
+// the Edit button). On future visits, the site loads from that saved copy instead
+// of the code — which means updates to DEFAULT_DATA are ignored for that person.
+//
+// THE FIX: We store a version number alongside the saved data. If the number in
+// the code (DATA_VERSION) doesn't match the saved number, we discard the old
+// saved data and load fresh from DEFAULT_DATA.
+//
+// IMPORTANT: Any time you add, remove, or change courses/topics/formulas in
+// DEFAULT_DATA above and want returning visitors to see the changes, bump
+// DATA_VERSION by 1 before deploying. This will wipe any edits users made
+// themselves via the Edit button — acceptable for now, but worth knowing.
+const DATA_VERSION = 2;
+
 let data      = loadData();
 let navStack  = [];                              // history for back-button
 let nav       = { view:'home', classId:null, topicId:null };
@@ -811,12 +830,18 @@ let study = {
 function loadData() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const saved = JSON.parse(raw);
+      if (saved.version === DATA_VERSION) return saved.data;
+      // Version mismatch — the code has been updated with new content.
+      // Discard the old saved data and fall through to load fresh DEFAULT_DATA.
+    }
   } catch(e) {}
   return JSON.parse(JSON.stringify(DEFAULT_DATA)); // deep clone
 }
 function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  // Always save with the current version number so we can detect stale data on future visits.
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: DATA_VERSION, data: data }));
 }
 
 // ═══════════════════════════════════════════════════════════════════
