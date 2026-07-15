@@ -200,13 +200,23 @@
       color: #111827;
       margin-bottom: 14px;
     }
-    .formula-display {
+    /* KaTeX overflow fix — applies everywhere display math is rendered.
+       KaTeX's em-based sizing renders 1-2px taller than the browser's measured
+       box. If the wrapper has overflow-x:auto, the browser forces overflow-y
+       to auto too, and those stray pixels trigger a vertical scrollbar that
+       clips superscripts. Fix: scroll horizontally on the KaTeX block itself,
+       never vertically, and pad so the rounding pixels aren't clipped. */
+    .katex-display {
+      margin: 0;
       overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.4em 0.2em;
+    }
+    .formula-display {
       text-align: center;
       padding: 6px 0 10px;
       color: #111827;
     }
-    .formula-display .katex-display { margin: 0; }
     .formula-card-desc {
       font-size: 0.95rem;
       color: #111827;
@@ -319,7 +329,6 @@
       padding: 18px 14px;
       text-align: center;
       min-height: 64px;
-      overflow-x: auto;
       margin-top: 8px;
       display: flex; align-items: center; justify-content: center;
     }
@@ -369,21 +378,24 @@
 
     /* ── Flashcard ── */
     .card-scene { perspective: 1200px; width: 100%; max-width: 640px; margin: 0 auto 28px; }
-    .card-inner { position: relative; width: 100%; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1); }
+    /* Grid stacking: both faces occupy the same grid cell (1/1), so the card's
+       height is always the taller of the two faces — the back is never squeezed
+       into an invisible box the size of the front. */
+    .card-inner { display: grid; width: 100%; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1); }
     .card-inner.is-flipped { transform: rotateY(180deg); }
     .card-face {
+      grid-area: 1 / 1;
       backface-visibility: hidden; -webkit-backface-visibility: hidden;
-      background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
-      padding: 48px 36px; min-height: 300px;
+      background: #ffffff; border: 1px solid #e5e7eb; border-radius: 18px;
+      padding: 48px 36px; min-height: 420px;
       display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
     }
-    .card-back-face { position: absolute; inset: 0; transform: rotateY(180deg); border-radius: 18px; }
-    .card-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text); margin-bottom: 20px; }
-    .card-main-text { font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.4; }
-    .card-main-formula { overflow-x: auto; width: 100%; }
-    .card-main-formula .katex-display { margin: 0; }
-    .card-desc { font-size: 0.8rem; color: var(--text); margin-top: 16px; font-style: italic; }
-    .card-tap-hint { font-size: 0.72rem; color: var(--text-dim); margin-top: 28px; opacity: 0.5; }
+    .card-back-face { transform: rotateY(180deg); }
+    .card-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #111827; margin-bottom: 20px; }
+    .card-main-text { font-size: 1.2rem; font-weight: 700; color: #111827; line-height: 1.4; }
+    .card-main-formula { flex-shrink: 0; width: 100%; color: #111827; }
+    .card-desc { font-size: 0.8rem; color: #111827; margin-top: 16px; font-style: italic; }
+    .card-tap-hint { font-size: 0.72rem; color: #6b7280; margin-top: 28px; opacity: 0.5; }
 
     /* ── Grade buttons ── */
     .grade-row { display: flex; gap: 16px; justify-content: center; margin-top: 4px; transition: opacity 0.2s; }
@@ -402,7 +414,7 @@
     .missed-list { display: flex; flex-direction: column; gap: 10px; }
     .missed-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 10px; padding: 14px 16px; }
     .missed-item-name { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 10px; }
-    .missed-item-formula { overflow-x: auto; text-align: center; }
+    .missed-item-formula { text-align: center; }
     .summary-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
 
     /* ── Responsive ── */
@@ -422,6 +434,7 @@
   <span class="site-nav-title">Brain Dump</span>
   <span class="site-nav-sub">Math Formula Library</span>
   <div class="nav-spacer"></div>
+  <button class="edit-toggle" id="reset-btn" onclick="resetToDefaults()">↺ Reset</button>
   <button class="edit-toggle" id="edit-toggle" onclick="toggleEditMode()">✎ Edit</button>
 </nav>
 
@@ -881,6 +894,14 @@ function toggleEditMode() {
   document.getElementById('edit-toggle').classList.toggle('active', editMode);
   document.getElementById('app').classList.toggle('edit-mode', editMode);
 }
+function resetToDefaults() {
+  if (!confirm('Reset everything to the original courses, topics, and formulas? Any custom changes you\'ve made will be lost.')) return;
+  data = JSON.parse(JSON.stringify(DEFAULT_DATA)); // deep clone so DEFAULT_DATA stays untouched
+  saveData();
+  nav = { view: 'home', classId: null, topicId: null };
+  navStack = [];
+  renderApp();
+}
 
 // ═══════════════════════════════════════════════════════════════════
 //  RENDER
@@ -1338,6 +1359,7 @@ function renderStudy() {
       <button class="grade-btn wrong" onclick="gradeCard(false)">👎 Missed it</button>
       <button class="grade-btn correct" onclick="gradeCard(true)">👍 Got it</button>
     </div>`;
+
 }
 
 function flipCard() {
